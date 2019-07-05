@@ -1,10 +1,11 @@
-// Type definitions for got 9.4
+// Type definitions for got 9.6
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
 //                 Matthew Bull <https://github.com/wingsbob>
+//                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -139,11 +140,17 @@ declare namespace got {
      * @template Body Response body type.
      */
     interface Hooks<Options, Body extends Buffer | string | object> {
+        init?: Array<InitHook<Options>>;
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
+
+    /**
+     * @param options Unnormalized request options.
+     */
+    type InitHook<Options> = (options: Options) => void;
 
     /**
      * @param options Normalized request options.
@@ -251,7 +258,7 @@ declare namespace got {
 
     interface RetryOptions {
         retries?: number | RetryFunction;
-        methods?: Array<'GET' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
+        methods?: Array<'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
         statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
         maxRetryAfter?: number;
         /**

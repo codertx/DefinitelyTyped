@@ -111,6 +111,7 @@ declare namespace Flexmonster {
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
+        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: {uniqueName: string, isRemoved: boolean}) => void) | string): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;
@@ -291,6 +292,7 @@ declare namespace Flexmonster {
         validateFormulas?: boolean;
         showFieldListSearch?: boolean;
         strictDataTypes?: boolean;
+        caseSensitiveMembers?: boolean;
     }
 
     interface PrintOptions {
@@ -359,6 +361,7 @@ declare namespace Flexmonster {
         useCustomizeCellForData?: boolean;
         excelExportAll?: boolean;
         requestHeader?: object;
+        fontUrl?: string;
     }
 
     interface Hierarchy {
@@ -528,6 +531,7 @@ declare namespace Flexmonster {
         handler?: (() => void) | string;
         submenu?: ContextMenuItem[];
         isSelected?: boolean;
+        class?: string;
     }
 
     interface ChartData {
